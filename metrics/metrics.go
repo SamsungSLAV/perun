@@ -50,9 +50,9 @@ type Metrics interface {
 	// created metric.
 	RegisterGauge(namespace, subsystem, name, help string) (Gauge, error)
 	// Start starts prometheus client HTTP service.
-	Start()
+	Start() error
 	// Close stops and cleans up the service.
-	Close()
+	Close() error
 }
 
 // NewMetrics is the only valid way of creating Metrics interface instance.
@@ -61,5 +61,5 @@ type Metrics interface {
 // this address.
 // This is a public wrapper, presented here for keeping whole metrics package API in single file.
 func NewMetrics(listenAddress string) (Metrics, error) {
-	return nil, nil
+	return newMetrics(listenAddress)
 }

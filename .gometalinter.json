@@ -36,7 +36,9 @@
     "metrics/locker_mock_test.go",
     "metrics/mock_generate.go",
     "metrics/prometheus_gauge_mock_test.go",
+    "watcher/db_mock_test.go",
     "watcher/metrics_mock_test.go",
-    "watcher/mock_generate.go"
+    "watcher/mock_generate.go",
+    "watcher/task_consumer_mock_test.go"
 ]
 }

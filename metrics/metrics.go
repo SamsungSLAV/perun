@@ -61,5 +61,5 @@ type Metrics interface {
 // this address.
 // This is a public wrapper, presented here for keeping whole metrics package API in single file.
 func NewMetrics(listenAddress string) (Metrics, error) {
-	return nil, nil
+	return newMetrics(listenAddress)
 }

@@ -35,6 +35,8 @@
 "Exclude":[
     "metrics/locker_mock_test.go",
     "metrics/mock_generate.go",
-    "metrics/prometheus_gauge_mock_test.go"
+    "metrics/prometheus_gauge_mock_test.go",
+    "watcher/metrics_mock_test.go",
+    "watcher/mock_generate.go"
 ]
 }

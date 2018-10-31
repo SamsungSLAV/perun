@@ -20,6 +20,9 @@ import (
 	"time"
 )
 
+// Server contains server's URL address of root folder for downloading images.
+type Server = string
+
 // ImageType defines type of binary image, e.g. snapshot or prerelease.
 type ImageType = string
 
@@ -51,6 +54,7 @@ type FileName = string
 
 // Image aggregates all information about the image.
 type Image struct {
+	Server
 	ImageType
 	Profile
 	Snapshot

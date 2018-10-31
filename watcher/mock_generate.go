@@ -17,3 +17,5 @@
 package watcher
 
 //go:generate mockgen -package watcher -destination=metrics_mock_test.go -write_package_comment=false github.com/SamsungSLAV/perun/metrics Gauge,Metrics
+//go:generate mockgen -package watcher -destination=task_consumer_mock_test.go -write_package_comment=false github.com/SamsungSLAV/perun/watcher TaskConsumer
+//go:generate mockgen -package watcher -destination=db_mock_test.go -write_package_comment=false github.com/SamsungSLAV/perun/db DB

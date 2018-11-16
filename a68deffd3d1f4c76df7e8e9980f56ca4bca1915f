@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a2032be7_2b98c826",
+        "filename": ".gometalinter.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1015220
+      },
+      "writtenOn": "2018-11-16T18:50:25Z",
+      "side": 1,
+      "message": "Which version of gometalinter do you use (I still have gas instead of gosec)?",
+      "range": {
+        "startLine": 16,
+        "startChar": 5,
+        "endLine": 16,
+        "endChar": 10
+      },
+      "revId": "a68deffd3d1f4c76df7e8e9980f56ca4bca1915f",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}

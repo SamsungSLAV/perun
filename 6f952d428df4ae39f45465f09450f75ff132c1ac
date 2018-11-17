@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "92194a45_4e7e9dfa",
+        "filename": "util/goroutinesync.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1015220
+      },
+      "writtenOn": "2018-11-17T19:20:21Z",
+      "side": 1,
+      "message": "Why not a channel from child to parent?",
+      "range": {
+        "startLine": 27,
+        "startChar": 1,
+        "endLine": 27,
+        "endChar": 21
+      },
+      "revId": "6f952d428df4ae39f45465f09450f75ff132c1ac",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}

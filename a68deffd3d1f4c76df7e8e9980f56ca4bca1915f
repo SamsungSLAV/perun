@@ -22,6 +22,53 @@
       "revId": "a68deffd3d1f4c76df7e8e9980f56ca4bca1915f",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d58e1d0c_6521e7dc",
+        "filename": ".gometalinter.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1015231
+      },
+      "writtenOn": "2018-11-19T15:04:18Z",
+      "side": 1,
+      "message": "current master works a lot better (nolint clauses, ignoring generated files, etc - problems we had when it was added to weles are resolved on master. ill add patch to weles to fix the config so we can use one gometalinter version ;d )",
+      "parentUuid": "a2032be7_2b98c826",
+      "range": {
+        "startLine": 16,
+        "startChar": 5,
+        "endLine": 16,
+        "endChar": 10
+      },
+      "revId": "a68deffd3d1f4c76df7e8e9980f56ca4bca1915f",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "62f6f63f_fb15387a",
+        "filename": ".gometalinter.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1015231
+      },
+      "writtenOn": "2018-11-19T15:04:18Z",
+      "side": 1,
+      "message": "why break this [] and not the rest?",
+      "range": {
+        "startLine": 35,
+        "startChar": 10,
+        "endLine": 35,
+        "endChar": 11
+      },
+      "revId": "a68deffd3d1f4c76df7e8e9980f56ca4bca1915f",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
     }
   ]
 }

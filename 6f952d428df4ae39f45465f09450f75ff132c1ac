@@ -22,6 +22,30 @@
       "revId": "6f952d428df4ae39f45465f09450f75ff132c1ac",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8079191b_0673851e",
+        "filename": "util/goroutinesync.go",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1015221
+      },
+      "writtenOn": "2018-11-20T21:34:51Z",
+      "side": 1,
+      "message": "because in case of N children and a single parent, you would require N such channels. In case of WaitGroup every child can increment groups value and parent would wait for all children to be done on single group.",
+      "parentUuid": "92194a45_4e7e9dfa",
+      "range": {
+        "startLine": 27,
+        "startChar": 1,
+        "endLine": 27,
+        "endChar": 21
+      },
+      "revId": "6f952d428df4ae39f45465f09450f75ff132c1ac",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
     }
   ]
 }

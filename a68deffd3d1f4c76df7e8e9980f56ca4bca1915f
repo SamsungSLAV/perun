@@ -69,6 +69,30 @@
       "revId": "a68deffd3d1f4c76df7e8e9980f56ca4bca1915f",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "32f2ae8a_33f6cac6",
+        "filename": ".gometalinter.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1015221
+      },
+      "writtenOn": "2018-11-20T20:58:40Z",
+      "side": 1,
+      "message": "there will be some stuff inserted here in following patches",
+      "parentUuid": "62f6f63f_fb15387a",
+      "range": {
+        "startLine": 35,
+        "startChar": 10,
+        "endLine": 35,
+        "endChar": 11
+      },
+      "revId": "a68deffd3d1f4c76df7e8e9980f56ca4bca1915f",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
     }
   ]
 }

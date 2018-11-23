@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d00137fd_082f4cd5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1015220
+      },
+      "writtenOn": "2018-11-23T12:43:08Z",
+      "side": 1,
+      "message": "[minor] typo: based?",
+      "range": {
+        "startLine": 17,
+        "startChar": 10,
+        "endLine": 17,
+        "endChar": 14
+      },
+      "revId": "d4464acabd97e5631e911aeb1de4d5a009bfcb9c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b06388c_21a6db0d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1015220
+      },
+      "writtenOn": "2018-11-23T12:43:08Z",
+      "side": 1,
+      "message": "[minor] typo: is?",
+      "range": {
+        "startLine": 27,
+        "startChar": 58,
+        "endLine": 27,
+        "endChar": 61
+      },
+      "revId": "d4464acabd97e5631e911aeb1de4d5a009bfcb9c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9072e2d9_4fc91654",
+        "filename": "metrics/error.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1015220
+      },
+      "writtenOn": "2018-11-23T12:43:08Z",
+      "side": 1,
+      "message": "Correct me if I\u0027m wrong: gauge is a type of metric; all types of metrics require unique names\n\nIf so, consider: s/gauge/metric/g",
+      "range": {
+        "startLine": 22,
+        "startChar": 69,
+        "endLine": 23,
+        "endChar": 46
+      },
+      "revId": "d4464acabd97e5631e911aeb1de4d5a009bfcb9c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "51eadcaf_c7dd1edc",
+        "filename": "metrics/service.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1015220
+      },
+      "writtenOn": "2018-11-23T12:43:08Z",
+      "side": 1,
+      "message": "Is it intended to be run once, allowing registration multiple collectors?\n\nIf not, wouldn\u0027t listenAddress (as property) make a good context to this message?",
+      "range": {
+        "startLine": 57,
+        "startChar": 8,
+        "endLine": 57,
+        "endChar": 14
+      },
+      "revId": "d4464acabd97e5631e911aeb1de4d5a009bfcb9c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2085079b_373706c1",
+        "filename": "metrics/service.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1015220
+      },
+      "writtenOn": "2018-11-23T12:43:08Z",
+      "side": 1,
+      "message": "[minor] typo: waits",
+      "range": {
+        "startLine": 75,
+        "startChar": 32,
+        "endLine": 75,
+        "endChar": 36
+      },
+      "revId": "d4464acabd97e5631e911aeb1de4d5a009bfcb9c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2259d63f_39372da6",
+        "filename": "metrics/service.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1015220
+      },
+      "writtenOn": "2018-11-23T12:43:08Z",
+      "side": 1,
+      "message": "If it is intended to be run more than once, which one?\n\nConsider adding metrics.listenAddress as a property",
+      "range": {
+        "startLine": 91,
+        "startChar": 16,
+        "endLine": 91,
+        "endChar": 23
+      },
+      "revId": "d4464acabd97e5631e911aeb1de4d5a009bfcb9c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}

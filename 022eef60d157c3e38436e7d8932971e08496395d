@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "618ebafd_a95dec39",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1015221
+      },
+      "writtenOn": "2018-11-27T15:09:44Z",
+      "side": 1,
+      "message": "I don\u0027t know yet. Probably it will be create manually.\nIMO it\u0027s not a big deal to handle JSON. The configuration probably will be edited once a year, when new version of tested OS ;) will be branched out.",
+      "parentUuid": "b71f7dab_19cbbf5a",
+      "range": {
+        "startLine": 7,
+        "startChar": 14,
+        "endLine": 7,
+        "endChar": 34
+      },
+      "revId": "022eef60d157c3e38436e7d8932971e08496395d",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "63dd29d4_1a53220c",
         "filename": "watcher/configuration.go",
         "patchSetId": 5
@@ -36,6 +60,30 @@
       "writtenOn": "2018-11-26T16:17:46Z",
       "side": 1,
       "message": "I didn\u0027t get it first time I read it; this naming convention is confusing\n\nFood for thought: how about ReleaseType (snapshot/prerelease)?",
+      "range": {
+        "startLine": 49,
+        "startChar": 1,
+        "endLine": 49,
+        "endChar": 38
+      },
+      "revId": "022eef60d157c3e38436e7d8932971e08496395d",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5d56ae93_8e20c91f",
+        "filename": "watcher/configuration.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1015221
+      },
+      "writtenOn": "2018-11-27T15:09:44Z",
+      "side": 1,
+      "message": "IMO type is fine. I prefer short one word tags.",
+      "parentUuid": "63dd29d4_1a53220c",
       "range": {
         "startLine": 49,
         "startChar": 1,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "daecf3ca_276ab2e9",
+        "filename": "watcher/configuration.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1015221
+      },
+      "writtenOn": "2018-11-27T15:09:44Z",
+      "side": 1,
+      "message": "It suppresses warning: \"Potential file inclusion via variable\". A comment added.",
+      "parentUuid": "bf979671_133a8d1c",
+      "range": {
+        "startLine": 63,
+        "startChar": 28,
+        "endLine": 63,
+        "endChar": 44
+      },
+      "revId": "022eef60d157c3e38436e7d8932971e08496395d",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "639ee714_c264b4fb",
         "filename": "watcher/configuration_test.go",
         "patchSetId": 5
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "49778a85_d88878ce",
+        "filename": "watcher/configuration_test.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1015221
+      },
+      "writtenOn": "2018-11-27T15:09:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "639ee714_c264b4fb",
+      "range": {
+        "startLine": 104,
+        "startChar": 30,
+        "endLine": 104,
+        "endChar": 37
+      },
+      "revId": "022eef60d157c3e38436e7d8932971e08496395d",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cbdb34b6_d20920d4",
         "filename": "watcher/configuration_test.go",
         "patchSetId": 5
@@ -105,6 +201,30 @@
       "writtenOn": "2018-11-26T16:17:46Z",
       "side": 1,
       "message": "This is confusing - I thought you meant invalidConfiguration again, yet you simply passed bad path to closeFile\n\nFFT: Maybe a differentiation between invalid files and files containing invalid configuration should be introduced?",
+      "range": {
+        "startLine": 127,
+        "startChar": 27,
+        "endLine": 127,
+        "endChar": 34
+      },
+      "revId": "022eef60d157c3e38436e7d8932971e08496395d",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "52290ae8_acd650ec",
+        "filename": "watcher/configuration_test.go",
+        "patchSetId": 5
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1015221
+      },
+      "writtenOn": "2018-11-27T15:09:44Z",
+      "side": 1,
+      "message": "modified to \"should fail to close invalid file structure\"",
+      "parentUuid": "cbdb34b6_d20920d4",
       "range": {
         "startLine": 127,
         "startChar": 27,

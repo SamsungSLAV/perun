@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "cf16c926_a5e2a134",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1015221
+      },
+      "writtenOn": "2018-11-27T14:52:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d00137fd_082f4cd5",
+      "range": {
+        "startLine": 17,
+        "startChar": 10,
+        "endLine": 17,
+        "endChar": 14
+      },
+      "revId": "d4464acabd97e5631e911aeb1de4d5a009bfcb9c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8b06388c_21a6db0d",
         "filename": "/COMMIT_MSG",
         "patchSetId": 4
@@ -45,6 +69,30 @@
       "revId": "d4464acabd97e5631e911aeb1de4d5a009bfcb9c",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e17344b5_3a4ea63c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1015221
+      },
+      "writtenOn": "2018-11-27T14:52:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8b06388c_21a6db0d",
+      "range": {
+        "startLine": 27,
+        "startChar": 58,
+        "endLine": 27,
+        "endChar": 61
+      },
+      "revId": "d4464acabd97e5631e911aeb1de4d5a009bfcb9c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "d06e27e4_f68d847b",
+        "filename": "metrics/error.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1015221
+      },
+      "writtenOn": "2018-11-27T14:52:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9072e2d9_4fc91654",
+      "range": {
+        "startLine": 22,
+        "startChar": 69,
+        "endLine": 23,
+        "endChar": 46
+      },
+      "revId": "d4464acabd97e5631e911aeb1de4d5a009bfcb9c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "51eadcaf_c7dd1edc",
         "filename": "metrics/service.go",
         "patchSetId": 4
@@ -82,6 +154,30 @@
       "writtenOn": "2018-11-23T12:43:08Z",
       "side": 1,
       "message": "Is it intended to be run once, allowing registration multiple collectors?\n\nIf not, wouldn\u0027t listenAddress (as property) make a good context to this message?",
+      "range": {
+        "startLine": 57,
+        "startChar": 8,
+        "endLine": 57,
+        "endChar": 14
+      },
+      "revId": "d4464acabd97e5631e911aeb1de4d5a009bfcb9c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "73cca7d7_f8f7e922",
+        "filename": "metrics/service.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1015221
+      },
+      "writtenOn": "2018-11-27T14:52:26Z",
+      "side": 1,
+      "message": "Multiple instance can be used.\nProperty added.",
+      "parentUuid": "51eadcaf_c7dd1edc",
       "range": {
         "startLine": 57,
         "startChar": 8,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "34cb3fb0_a3f88b0c",
+        "filename": "metrics/service.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1015221
+      },
+      "writtenOn": "2018-11-27T14:52:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2085079b_373706c1",
+      "range": {
+        "startLine": 75,
+        "startChar": 32,
+        "endLine": 75,
+        "endChar": 36
+      },
+      "revId": "d4464acabd97e5631e911aeb1de4d5a009bfcb9c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2259d63f_39372da6",
         "filename": "metrics/service.go",
         "patchSetId": 4
@@ -137,6 +257,30 @@
       "revId": "d4464acabd97e5631e911aeb1de4d5a009bfcb9c",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e49425a6_71694549",
+        "filename": "metrics/service.go",
+        "patchSetId": 4
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1015221
+      },
+      "writtenOn": "2018-11-27T14:52:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2259d63f_39372da6",
+      "range": {
+        "startLine": 91,
+        "startChar": 16,
+        "endLine": 91,
+        "endChar": 23
+      },
+      "revId": "d4464acabd97e5631e911aeb1de4d5a009bfcb9c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     }
   ]
 }

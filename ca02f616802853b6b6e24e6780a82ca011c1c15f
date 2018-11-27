@@ -22,6 +22,30 @@
       "revId": "ca02f616802853b6b6e24e6780a82ca011c1c15f",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "afa4eb63_4c4cb231",
+        "filename": "deploy/grafana_watcher.json",
+        "patchSetId": 2
+      },
+      "lineNbr": 375,
+      "author": {
+        "id": 1015221
+      },
+      "writtenOn": "2018-11-27T15:18:20Z",
+      "side": 1,
+      "message": "I didn\u0027t verified for every ID, but works fine with uid : \"Alamakota\"",
+      "parentUuid": "62e6b941_1f34de72",
+      "range": {
+        "startLine": 375,
+        "startChar": 12,
+        "endLine": 375,
+        "endChar": 21
+      },
+      "revId": "ca02f616802853b6b6e24e6780a82ca011c1c15f",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
     }
   ]
 }

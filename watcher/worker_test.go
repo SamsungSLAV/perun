@@ -69,6 +69,10 @@ var _ = Describe("worker", func() {
 		grs   util.GoRoutineSync
 		stop  chan interface{}
 
+		options = HTTPOptions{
+			ResponseTimeout: time.Second * 10,
+		}
+
 		SnapshotListSnapshots = Task{
 			TaskType: ListSnapshots,
 			Image: perun.Image{
@@ -76,6 +80,7 @@ var _ = Describe("worker", func() {
 				ImageType: perun.SNAPSHOT,
 				Profile:   profile,
 			},
+			HTTPOptions: options,
 		}
 		SnapshotListRepositoriesTask = Task{
 			TaskType: ListRepositories,
@@ -85,6 +90,7 @@ var _ = Describe("worker", func() {
 				Profile:   profile,
 				Snapshot:  snapshot,
 			},
+			HTTPOptions: options,
 		}
 		SnapshotListImagesTask = Task{
 			TaskType: ListImages,
@@ -95,6 +101,7 @@ var _ = Describe("worker", func() {
 				Snapshot:   snapshot,
 				Repository: repository,
 			},
+			HTTPOptions: options,
 		}
 		SnapshotListFilesTask = Task{
 			TaskType: ListFiles,
@@ -106,6 +113,7 @@ var _ = Describe("worker", func() {
 				Repository: repository,
 				ImageName:  imageName,
 			},
+			HTTPOptions: options,
 		}
 		SnapshotGetFileInfoTask = Task{
 			TaskType: GetFileInfo,
@@ -118,6 +126,7 @@ var _ = Describe("worker", func() {
 				ImageName:  imageName,
 				FileName:   fileName,
 			},
+			HTTPOptions: options,
 		}
 
 		PrereleaseListSnapshots = Task{
@@ -127,6 +136,7 @@ var _ = Describe("worker", func() {
 				ImageType: perun.PRERELEASE,
 				Profile:   profile2,
 			},
+			HTTPOptions: options,
 		}
 		PrereleaseListPrereleasesTask = Task{
 			TaskType: ListPrereleases,
@@ -136,6 +146,7 @@ var _ = Describe("worker", func() {
 				Profile:   profile2,
 				Snapshot:  snapshot2,
 			},
+			HTTPOptions: options,
 		}
 		PrereleaseListRepositoriesTask = Task{
 			TaskType: ListRepositories,
@@ -146,6 +157,7 @@ var _ = Describe("worker", func() {
 				Snapshot:   snapshot2,
 				Prerelease: prerelease2,
 			},
+			HTTPOptions: options,
 		}
 		PrereleaseListImagesTask = Task{
 			TaskType: ListImages,
@@ -157,6 +169,7 @@ var _ = Describe("worker", func() {
 				Prerelease: prerelease2,
 				Repository: repository,
 			},
+			HTTPOptions: options,
 		}
 		PrereleaseListFilesTask = Task{
 			TaskType: ListFiles,
@@ -169,6 +182,7 @@ var _ = Describe("worker", func() {
 				Repository: repository,
 				ImageName:  imageName2,
 			},
+			HTTPOptions: options,
 		}
 		PrereleaseGetFileInfoTask = Task{
 			TaskType: GetFileInfo,
@@ -182,6 +196,7 @@ var _ = Describe("worker", func() {
 				ImageName:  imageName2,
 				FileName:   fileName2,
 			},
+			HTTPOptions: options,
 		}
 		testError error
 	)

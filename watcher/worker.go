@@ -153,7 +153,7 @@ func (w *worker) processListSnapshots(task Task) {
 	if len(url) == 0 {
 		return
 	}
-	links := newCrawler(url).getLinks()
+	links := newCrawler(url, task.HTTPOptions).getLinks()
 	for _, l := range links {
 		switch task.ImageType {
 		case perun.SNAPSHOT:
@@ -177,7 +177,7 @@ func (w *worker) processListPrereleases(task Task) {
 	if len(url) == 0 {
 		return
 	}
-	links := newCrawler(url).getLinks()
+	links := newCrawler(url, task.HTTPOptions).getLinks()
 	for _, l := range links {
 		task.TaskType = ListRepositories
 		task.Prerelease = strings.TrimPrefix(l, "tizen-"+task.Profile+"_"+task.Snapshot+".")
@@ -195,7 +195,7 @@ func (w *worker) processListRepositories(task Task) {
 	if len(url) == 0 {
 		return
 	}
-	links := newCrawler(url).getLinks()
+	links := newCrawler(url, task.HTTPOptions).getLinks()
 	for _, l := range links {
 		task.TaskType = ListImages
 		task.Repository = l
@@ -213,7 +213,7 @@ func (w *worker) processListImages(task Task) {
 	if len(url) == 0 {
 		return
 	}
-	links := newCrawler(url).getLinks()
+	links := newCrawler(url, task.HTTPOptions).getLinks()
 	for _, l := range links {
 		task.TaskType = ListFiles
 		task.ImageName = l
@@ -231,7 +231,7 @@ func (w *worker) processListFiles(task Task) {
 	if len(url) == 0 {
 		return
 	}
-	links := newCrawler(url).requireSuffixes(defaultImageSuffixes).getLinks()
+	links := newCrawler(url, task.HTTPOptions).requireSuffixes(defaultImageSuffixes).getLinks()
 	for _, l := range links {
 		task.TaskType = GetFileInfo
 		task.FileName = l
@@ -249,7 +249,7 @@ func (w *worker) processGetFileInfo(task Task) {
 	if len(url) == 0 {
 		return
 	}
-	info := newCrawler(url).getFileInfo()
+	info := newCrawler(url, task.HTTPOptions).getFileInfo()
 	if info == nil {
 		return
 	}

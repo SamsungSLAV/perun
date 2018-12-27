@@ -39,12 +39,14 @@ var _ = Describe("profileWatcher", func() {
 		testProfile = "testProfile"
 		testType    = "testType"
 		testServer  = "testServer"
+		testTimeout = Period(time.Second * 7)
 
 		pc = ProfileConfiguration{
-			Server:  testServer,
-			Type:    testType,
-			Profile: testProfile,
-			Period:  testPeriod,
+			Server:          testServer,
+			Type:            testType,
+			Profile:         testProfile,
+			Period:          testPeriod,
+			ResponseTimeout: testTimeout,
 		}
 		testTask = Task{
 			TaskType: ListSnapshots,
@@ -52,6 +54,9 @@ var _ = Describe("profileWatcher", func() {
 				Server:    testServer,
 				ImageType: testType,
 				Profile:   testProfile,
+			},
+			HTTPOptions: HTTPOptions{
+				ResponseTimeout: time.Duration(testTimeout),
 			},
 		}
 

@@ -45,10 +45,11 @@ func (period *Period) UnmarshalJSON(b []byte) error {
 
 // ProfileConfiguration defines configuration entity for a single profile.
 type ProfileConfiguration struct {
-	Server  perun.Server    `json:"server"`
-	Type    perun.ImageType `json:"type"`
-	Profile perun.Profile   `json:"profile"`
-	Period  Period          `json:"period"`
+	Server          perun.Server    `json:"server"`
+	Type            perun.ImageType `json:"type"`
+	Profile         perun.Profile   `json:"profile"`
+	Period          Period          `json:"period"`
+	ResponseTimeout Period          `json:"timeout"`
 }
 
 // Configuration defines configuration of watcher.

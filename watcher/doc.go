@@ -65,17 +65,17 @@ Please notice that every profile and type requires separate ProfileConfiguration
 
 	{"profiles": [
 			{"server": "download.tizen.org", "type": "snapshot", "profile": "unified",
-				"period": "20s"},
+				"period": "20s", "timeout": "15s"},
 			{"server": "download.tizen.org", "type": "snapshot", "profile": "unified-4.0",
-				"period": "91s"},
+				"period": "91s", "timeout": "20s"},
 			{"server": "download.tizen.org", "type": "snapshot", "profile": "common-3.0",
-				"period": "92s"},
+				"period": "92s", "timeout": "25s"},
 			{"server": "download.tizen.org", "type": "prerelease", "profile": "unified",
-				"period": "15s"},
+				"period": "15s", "timeout": "25s"},
 			{"server": "download.tizen.org", "type": "prerelease", "profile": "unified-4.0",
-				"period": "64s"},
+				"period": "64s", "timeout": "1m"},
 			{"server": "download.tizen.org", "type": "prerelease", "profile": "common-3.0",
-				"period": "65s"}
+				"period": "65s", "timeout": "2m"}
 		],
 		"tasksqueue": 5000,
 		"workers": 70

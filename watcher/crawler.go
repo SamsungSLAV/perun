@@ -18,6 +18,7 @@ package watcher
 
 import (
 	"io"
+	"net"
 	"net/http"
 	"strconv"
 	"strings"
@@ -40,6 +41,7 @@ type crawler struct {
 	url              string
 	ignoredPrefixes  []string
 	requiredSuffixes []string
+	httpOptions      HTTPOptions
 }
 
 // defaultIgnoredPrefixes are ignored in most of the cases.
@@ -49,10 +51,11 @@ var defaultIgnoredPrefixes = []string{"?", "/", "..", "latest"}
 var defaultImageSuffixes = []string{".tar.gz"}
 
 // newCrawler creates a new crawler with given url and default settings.
-func newCrawler(url string) *crawler {
+func newCrawler(url string, options HTTPOptions) *crawler {
 	return &crawler{
 		url:             url,
 		ignoredPrefixes: defaultIgnoredPrefixes,
+		httpOptions:     options,
 	}
 }
 
@@ -62,9 +65,31 @@ func (c *crawler) requireSuffixes(suffixes []string) *crawler {
 	return c
 }
 
+// createHTTPTransport creates the HTTP Transport with custom values.
+// The values base on http.DefaultTransport values. The code is copied here, because
+// the http.DefaultTransport cannot be copied as it contains private synchronization fields.
+func (c *crawler) createHTTPTransport() http.RoundTripper {
+	return &http.Transport{
+		// Values taken from http.DefaultTransport.
+		Proxy: http.ProxyFromEnvironment,
+		DialContext: (&net.Dialer{
+			Timeout:   30 * time.Second,
+			KeepAlive: 30 * time.Second,
+			DualStack: true,
+		}).DialContext,
+		MaxIdleConns:          100,
+		IdleConnTimeout:       90 * time.Second,
+		TLSHandshakeTimeout:   10 * time.Second,
+		ExpectContinueTimeout: 1 * time.Second,
+		// Custom values.
+		ResponseHeaderTimeout: c.httpOptions.ResponseTimeout,
+	}
+}
+
 // getLinks extracts list of links urls from the HTML page received with GET method.
 func (c *crawler) getLinks() (ret []string) {
-	resp, err := http.Get(c.url)
+	client := &http.Client{Transport: c.createHTTPTransport()}
+	resp, err := client.Get(c.url)
 	if err != nil {
 		logger.WithError(err).WithProperty("url", c.url).Warning("Cannot GET requested url.")
 		return
@@ -150,7 +175,8 @@ func (c *crawler) isMatching(value string) bool {
 
 // getFileInfo extracts file information from HTTP header acquired with HEAD method.
 func (c *crawler) getFileInfo() *perun.FileInfo {
-	resp, err := http.Head(c.url)
+	client := &http.Client{Transport: c.createHTTPTransport()}
+	resp, err := client.Head(c.url)
 	if err != nil {
 		logger.WithError(err).WithProperty("url", c.url).Warning("Cannot HEAD requested url.")
 		return nil

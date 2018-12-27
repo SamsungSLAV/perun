@@ -43,6 +43,7 @@ const (
 var (
 	testFilePath = testutil.GetGOPATH() + "/src/" + thisPackage + "/" + testFileDir
 	lock         = new(sync.Mutex)
+	options      = HTTPOptions{ResponseTimeout: time.Second * 123}
 )
 
 type dummyIoCloser struct{}
@@ -57,10 +58,11 @@ var _ = Describe("crawler", func() {
 	})
 	Describe("newCrawler", func() {
 		It("should create new initialized crawler structure", func() {
-			c := newCrawler(testURL)
+			c := newCrawler(testURL, options)
 			Expect(c).NotTo(BeNil())
 			Expect(c.url).To(Equal(testURL))
 			Expect(c.ignoredPrefixes).To(Equal(defaultIgnoredPrefixes))
+			Expect(c.httpOptions).To(Equal(options))
 		})
 	})
 	Describe("with crawler", func() {
@@ -68,7 +70,7 @@ var _ = Describe("crawler", func() {
 		BeforeEach(func() {
 			lock.Lock()
 			defer lock.Unlock()
-			c = newCrawler(testURL)
+			c = newCrawler(testURL, options)
 		})
 		Describe("requireSuffixes", func() {
 			T.DescribeTable("should set proper suffixes",
@@ -82,6 +84,38 @@ var _ = Describe("crawler", func() {
 				T.Entry("valid", []string{"suf1", "suf2"}),
 				T.Entry("empty", []string{}),
 			)
+		})
+		Describe("createHTTPTransport", func() {
+			It("should create new HTTP transport", func() {
+				rt := c.createHTTPTransport()
+				Expect(rt).NotTo(BeNil())
+				trans := rt.(*http.Transport)
+				Expect(trans).NotTo(BeNil())
+
+				// Default tarnsport fields.
+				Expect(trans.Proxy).NotTo(BeNil())
+				Expect(trans.DialContext).NotTo(BeNil())
+				Expect(trans.MaxIdleConns).To(Equal(100))
+				Expect(trans.IdleConnTimeout).To(Equal(time.Second * 90))
+				Expect(trans.TLSHandshakeTimeout).To(Equal(time.Second * 10))
+				Expect(trans.ExpectContinueTimeout).To(Equal(time.Second * 1))
+
+				// Customized fields
+				Expect(trans.ResponseHeaderTimeout).To(Equal(options.ResponseTimeout))
+
+				// Not initialized fields.
+				// Disable linter check for deprecated Dial field to supress warning.
+				Expect(trans.Dial).To(BeZero()) // nolint: megacheck
+				Expect(trans.DialTLS).To(BeZero())
+				Expect(trans.DisableCompression).To(BeZero())
+				Expect(trans.DisableKeepAlives).To(BeZero())
+				Expect(trans.MaxConnsPerHost).To(BeZero())
+				Expect(trans.MaxIdleConnsPerHost).To(BeZero())
+				Expect(trans.MaxResponseHeaderBytes).To(BeZero())
+				Expect(trans.ProxyConnectHeader).To(BeZero())
+				Expect(trans.TLSClientConfig).To(BeZero())
+				Expect(trans.TLSNextProto).To(BeZero())
+			})
 		})
 		Describe("getLinks", func() {
 			var server *testutil.HTTPFileServer

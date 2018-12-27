@@ -56,8 +56,10 @@ var _ = Describe("configuration", func() {
 	Describe("loadConfiguration", func() {
 		var tempFile *os.File
 		const validConfiguration = `{"profiles":[` +
-			`{"server": "abc", "type": "prerelease", "profile": "common-3.0", "period": "65s"},` +
-			`{"server": "def", "type": "snapshot", "profile": "unified", "period": "2m"}` +
+			`{"server": "abc", "type": "prerelease", "profile": "common-3.0", "period": "65s", ` +
+			`"timeout": "15s"},` +
+			`{"server": "def", "type": "snapshot", "profile": "unified", "period": "2m", ` +
+			`"timeout": "23s"}` +
 			`], "tasksqueue": 3000, "workers": 50}`
 		const invalidConfiguration = `{"prof: 50}`
 		saveConfiguration := func(content string) {
@@ -84,16 +86,18 @@ var _ = Describe("configuration", func() {
 				Expect(conf).NotTo(BeNil())
 				Expect(len(conf.Profiles)).To(Equal(2))
 				Expect(conf.Profiles[0]).To(Equal(ProfileConfiguration{
-					Server:  "abc",
-					Type:    perun.PRERELEASE,
-					Profile: "common-3.0",
-					Period:  Period(time.Second * 65),
+					Server:          "abc",
+					Type:            perun.PRERELEASE,
+					Profile:         "common-3.0",
+					Period:          Period(time.Second * 65),
+					ResponseTimeout: Period(time.Second * 15),
 				}))
 				Expect(conf.Profiles[1]).To(Equal(ProfileConfiguration{
-					Server:  "def",
-					Type:    perun.SNAPSHOT,
-					Profile: "unified",
-					Period:  Period(time.Minute * 2),
+					Server:          "def",
+					Type:            perun.SNAPSHOT,
+					Profile:         "unified",
+					Period:          Period(time.Minute * 2),
+					ResponseTimeout: Period(time.Second * 23),
 				}))
 				Expect(conf.TasksQueue).To(Equal(3000))
 				Expect(conf.Workers).To(Equal(50))

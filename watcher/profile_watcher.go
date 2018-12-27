@@ -69,6 +69,9 @@ func (pw *profileWatcher) loop(ticker *time.Ticker) {
 			ImageType: pw.conf.Type,
 			Profile:   pw.conf.Profile,
 		},
+		HTTPOptions: HTTPOptions{
+			ResponseTimeout: time.Duration(pw.conf.ResponseTimeout),
+		},
 	}
 
 	for {

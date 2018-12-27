@@ -16,7 +16,11 @@
 
 package watcher
 
-import "github.com/SamsungSLAV/perun"
+import (
+	"time"
+
+	"github.com/SamsungSLAV/perun"
+)
 
 // TaskType defines type of task, which defines way of creating url and parsing it.
 type TaskType = string
@@ -36,6 +40,13 @@ const (
 	GetFileInfo TaskType = "GetFileInfo"
 )
 
+// HTTPOptions defines additional options customizing HTTP requests during processing a task.
+type HTTPOptions struct {
+	// ResponseTimeout defines time to wait for header in HTTP response after writting request
+	// is completed.
+	ResponseTimeout time.Duration
+}
+
 // Task describes task for searching or getting information about image. Tasks are run by workers.
 // The TaskType contains information about type of task to be done.
 // The Image contains all the information allowing to create proper URL and acquire information
@@ -43,6 +54,7 @@ const (
 type Task struct {
 	TaskType
 	perun.Image
+	HTTPOptions
 }
 
 // TaskConsumer defines API for passing tasks ready to be executed. It is singled out fo future use

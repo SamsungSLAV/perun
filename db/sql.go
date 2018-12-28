@@ -18,4 +18,46 @@ package db
 
 const (
 	masterSelect = `SELECT sql FROM sqlite_master WHERE type = $1 AND name = $2`
+
+	metaCreate = `CREATE TABLE meta (
+key TEXT PRIMARY KEY ASC NOT NULL UNIQUE,
+value INTEGER)`
+
+	metaRevisionInit = `INSERT OR IGNORE INTO meta VALUES ('revision', 0)`
+
+	imagesCreate = `CREATE TABLE images (
+url TEXT PRIMARY KEY ASC NOT NULL UNIQUE,
+server TEXT,
+imagetype TEXT,
+profile TEXT,
+snapshot TEXT,
+prerelease TEXT,
+repository TEXT,
+imagename TEXT,
+filename TEXT,
+length INTEGER,
+modified INTEGER,
+revision INTEGER)`
+
+	imagesFilterCreate = `CREATE TRIGGER imagesFilter
+BEFORE INSERT ON images
+WHEN NEW.modified <= (
+	SELECT modified FROM images WHERE url = NEW.url
+	UNION
+	SELECT 0
+	ORDER BY modified DESC LIMIT 1
+) BEGIN
+	SELECT RAISE(IGNORE) ;
+END`
+
+	imagesRevisionCreate = `CREATE TRIGGER imagesRevision
+AFTER INSERT ON images
+BEGIN
+	UPDATE images
+		SET revision = (SELECT value + 1 FROM meta WHERE key = 'revision')
+		WHERE url = NEW.url ;
+	UPDATE meta
+		SET value = (SELECT value + 1 FROM meta WHERE key = 'revision')
+		WHERE key = 'revision' ;
+END`
 )

@@ -17,6 +17,8 @@
 package db
 
 import (
+	"database/sql"
+
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 
@@ -26,4 +28,18 @@ import (
 func TestDB(t *testing.T) {
 	RegisterFailHandler(Fail)
 	RunSpecs(t, "DB Suite")
+}
+
+func getRevision(tx *sql.Tx) int {
+	var rev int
+	err := tx.QueryRow(`SELECT value FROM meta WHERE key = 'revision'`).Scan(&rev)
+	if err != nil {
+		return -1
+	}
+	return rev
+}
+
+func setRevision(tx *sql.Tx, rev int) error {
+	_, err := tx.Exec(`INSERT OR REPLACE INTO meta VALUES ('revision', $1)`, rev)
+	return err
 }

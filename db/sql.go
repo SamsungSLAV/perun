@@ -60,4 +60,7 @@ BEGIN
 		SET value = (SELECT value + 1 FROM meta WHERE key = 'revision')
 		WHERE key = 'revision' ;
 END`
+
+	imagesInsert = `INSERT OR REPLACE INTO images
+VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, -1)`
 )

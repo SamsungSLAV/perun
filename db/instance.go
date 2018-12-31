@@ -150,3 +150,12 @@ func (db *instance) runInTransaction(f func(*sql.Tx) error) error {
 	}
 	return nil
 }
+
+// GetRevision returns perun's database global revision.
+func (db *instance) GetRevision() (int, error) {
+	rev := -1
+	err := db.runInTransaction(func(tx *sql.Tx) error {
+		return tx.QueryRow(metaRevisionGet).Scan(&rev)
+	})
+	return rev, err
+}

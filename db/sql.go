@@ -25,6 +25,8 @@ value INTEGER)`
 
 	metaRevisionInit = `INSERT OR IGNORE INTO meta VALUES ('revision', 0)`
 
+	metaRevisionGet = `SELECT value FROM meta WHERE key = 'revision'`
+
 	imagesCreate = `CREATE TABLE images (
 url TEXT PRIMARY KEY ASC NOT NULL UNIQUE,
 server TEXT,

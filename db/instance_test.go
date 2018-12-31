@@ -645,4 +645,68 @@ var _ = Describe("Instance", func() {
 			Expect(strings.Count(log, "Database schema cannot be set.")).To(Equal(1))
 		})
 	})
+	Describe("GetRevision", func() {
+		It("should get proper revision", func() {
+			var db DB
+			_, logerr := testutil.WithStderrMocked(func() {
+				defer GinkgoRecover()
+				lock.Lock()
+				defer lock.Unlock()
+				var err error
+				db, err = NewDB(dbfile.Name())
+				Expect(err).NotTo(HaveOccurred())
+				err = db.Start()
+				Expect(err).NotTo(HaveOccurred())
+			})
+			Expect(logerr).NotTo(HaveOccurred())
+
+			log, logerr := testutil.WithStderrMocked(func() {
+				defer GinkgoRecover()
+				lock.Lock()
+				defer lock.Unlock()
+
+				rev, err := db.GetRevision()
+				Expect(err).NotTo(HaveOccurred())
+				Expect(rev).To(Equal(0))
+
+				err = db.(*instance).runInTransaction(func(tx *sql.Tx) error {
+					return setRevision(tx, testRevision)
+				})
+				Expect(err).NotTo(HaveOccurred())
+
+				rev, err = db.GetRevision()
+				Expect(err).NotTo(HaveOccurred())
+				Expect(rev).To(Equal(testRevision))
+			})
+			Expect(logerr).NotTo(HaveOccurred())
+			Expect(log).To(BeEmpty())
+		})
+		It("should return error if revision cannot be got", func() {
+			var db DB
+			_, logerr := testutil.WithStderrMocked(func() {
+				defer GinkgoRecover()
+				lock.Lock()
+				defer lock.Unlock()
+				var err error
+				db, err = NewDB(dbfile.Name())
+				Expect(err).NotTo(HaveOccurred())
+				dataSource := "file:" + dbfile.Name()
+				db.(*instance).connection, err = sql.Open(defaultSQLDriver, dataSource)
+				Expect(err).NotTo(HaveOccurred())
+			})
+			Expect(logerr).NotTo(HaveOccurred())
+
+			log, logerr := testutil.WithStderrMocked(func() {
+				defer GinkgoRecover()
+				lock.Lock()
+				defer lock.Unlock()
+
+				rev, err := db.GetRevision()
+				Expect(err).To(HaveOccurred())
+				Expect(rev).To(Equal(-1))
+			})
+			Expect(logerr).NotTo(HaveOccurred())
+			Expect(log).To(BeEmpty())
+		})
+	})
 })

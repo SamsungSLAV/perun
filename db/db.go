@@ -30,6 +30,9 @@ type DB interface {
 	// Close finishes usage of DB connection.
 	Close() error
 
+	// GetRevision returns perun's database global revision.
+	GetRevision() (int, error)
+
 	// UpdateImage updates database with new information about image file.
 	UpdateImage(*perun.ImageFileInfo) error
 }

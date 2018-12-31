@@ -33,6 +33,8 @@
 "Aggregate":true,
 "Skip":[],
 "Exclude":[
+    "db/mock_generate.go",
+    "db/sql_driver_mock_test.go",
     "metrics/locker_mock_test.go",
     "metrics/mock_generate.go",
     "metrics/prometheus_gauge_mock_test.go",
@@ -40,5 +42,6 @@
     "watcher/metrics_mock_test.go",
     "watcher/mock_generate.go",
     "watcher/task_consumer_mock_test.go"
-]
+],
+"Deadline":"5m"
 }

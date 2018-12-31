@@ -16,14 +16,4 @@
 
 package db
 
-import "errors"
-
-var (
-	// ErrSchemaMismatch is returned when trying to create a table in DB
-	// with schema not matching existing table.
-	ErrSchemaMismatch = errors.New("Table schema mismatch")
-	// ErrDatabaseConnectionNotInitialized is returned when database module is misused.
-	// This can happen when someone uses database without starting connection with Start()
-	// method first.
-	ErrDatabaseConnectionNotInitialized = errors.New("Database connection not initialized")
-)
+//go:generate mockgen -package db -destination=sql_driver_mock_test.go -write_package_comment=false database/sql/driver Driver,Conn

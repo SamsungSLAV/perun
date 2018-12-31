@@ -78,7 +78,7 @@ var _ = Describe("ImageInfo", func() {
 		defer lock.Unlock()
 
 		var err error
-		dbConnection, err = sql.Open("sqlite3", ":memory:")
+		dbConnection, err = sql.Open(defaultSQLDriver, ":memory:")
 		Expect(err).NotTo(HaveOccurred())
 		Expect(dbConnection).NotTo(BeNil())
 

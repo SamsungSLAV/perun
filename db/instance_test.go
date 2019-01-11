@@ -38,13 +38,57 @@ import (
 
 var _ = Describe("Instance", func() {
 	const (
-		testRevision = 136897
+		testRevision   = 136897
+		testURL        = "testURL"
+		testServer     = "testServer"
+		testImageType  = perun.SNAPSHOT
+		testProfile    = "testProfile"
+		testSnapshot   = "testSnapshot"
+		testPrerelease = "testPrerelease"
+		testRepository = "testRepository"
+		testImageName  = "testImageName"
+		testFileName   = "testFileName"
+		testLength     = 67
 	)
 	var (
-		lock      = new(sync.Mutex)
-		dbfile    *os.File
-		testError = errors.New("testError")
+		lock         = new(sync.Mutex)
+		dbfile       *os.File
+		testError    = errors.New("testError")
+		testModified = time.Now().UTC()
+		ifi          = perun.ImageFileInfo{
+			URL: testURL,
+			Image: perun.Image{
+				Server:     testServer,
+				ImageType:  testImageType,
+				Profile:    testProfile,
+				Snapshot:   testSnapshot,
+				Prerelease: testPrerelease,
+				Repository: testRepository,
+				ImageName:  testImageName,
+				FileName:   testFileName,
+			},
+			Info: perun.FileInfo{
+				Length:   testLength,
+				Modified: testModified,
+			},
+		}
 	)
+	verifyRecord := func(tx *sql.Tx, key string, expected ImageInfo, expectedRevision int) {
+		var r ImageInfo
+		var rev int
+		var modified int64
+		err := tx.QueryRow(`SELECT * FROM images WHERE url = $1`, key).
+			Scan(&r.URL, &r.Image.Server, &r.Image.ImageType, &r.Image.Profile,
+				&r.Image.Snapshot, &r.Image.Prerelease, &r.Image.Repository,
+				&r.Image.ImageName, &r.Image.FileName, &r.Info.Length, &modified,
+				&rev)
+		ExpectWithOffset(1, err).NotTo(HaveOccurred())
+		r.Info.Modified = time.Unix(modified, 0).UTC()
+		expected.Info.Modified = expected.Info.Modified.Truncate(time.Second)
+		ExpectWithOffset(1, r).To(Equal(expected))
+		ExpectWithOffset(1, rev).To(Equal(expectedRevision))
+	}
+
 	BeforeEach(func() {
 		lock.Lock()
 		defer lock.Unlock()
@@ -347,51 +391,6 @@ var _ = Describe("Instance", func() {
 		})
 	})
 	Describe("UpdateImage", func() {
-		const (
-			testURL        = "testURL"
-			testServer     = "testServer"
-			testImageType  = perun.SNAPSHOT
-			testProfile    = "testProfile"
-			testSnapshot   = "testSnapshot"
-			testPrerelease = "testPrerelease"
-			testRepository = "testRepository"
-			testImageName  = "testImageName"
-			testFileName   = "testFileName"
-			testLength     = 67
-		)
-		testModified := time.Now().UTC()
-		ifi := perun.ImageFileInfo{
-			URL: testURL,
-			Image: perun.Image{
-				Server:     testServer,
-				ImageType:  testImageType,
-				Profile:    testProfile,
-				Snapshot:   testSnapshot,
-				Prerelease: testPrerelease,
-				Repository: testRepository,
-				ImageName:  testImageName,
-				FileName:   testFileName,
-			},
-			Info: perun.FileInfo{
-				Length:   testLength,
-				Modified: testModified,
-			},
-		}
-		verifyRecord := func(tx *sql.Tx, key string, expected ImageInfo, expectedRevision int) {
-			var r ImageInfo
-			var rev int
-			var modified int64
-			err := tx.QueryRow(`SELECT * FROM images WHERE url = $1`, key).
-				Scan(&r.URL, &r.Image.Server, &r.Image.ImageType, &r.Image.Profile,
-					&r.Image.Snapshot, &r.Image.Prerelease, &r.Image.Repository,
-					&r.Image.ImageName, &r.Image.FileName, &r.Info.Length, &modified,
-					&rev)
-			ExpectWithOffset(1, err).NotTo(HaveOccurred())
-			r.Info.Modified = time.Unix(modified, 0).UTC()
-			expected.Info.Modified = expected.Info.Modified.Truncate(time.Second)
-			ExpectWithOffset(1, r).To(Equal(expected))
-			ExpectWithOffset(1, rev).To(Equal(expectedRevision))
-		}
 		It("should insert image into database", func() {
 			var db DB
 			_, logerr := testutil.WithStderrMocked(func() {
@@ -707,6 +706,138 @@ var _ = Describe("Instance", func() {
 			})
 			Expect(logerr).NotTo(HaveOccurred())
 			Expect(log).To(BeEmpty())
+		})
+	})
+	Describe("GetImages", func() {
+		It("should get proper records", func() {
+			var db DB
+			_, logerr := testutil.WithStderrMocked(func() {
+				defer GinkgoRecover()
+				lock.Lock()
+				defer lock.Unlock()
+				var err error
+				db, err = NewDB(dbfile.Name())
+				Expect(err).NotTo(HaveOccurred())
+				err = db.Start()
+				Expect(err).NotTo(HaveOccurred())
+
+				ins := ifi
+				ins.URL = "record_1"
+				ins.Image.FileName = "AHE"
+				err = db.UpdateImage(&ins)
+				Expect(err).NotTo(HaveOccurred())
+
+				ins = ifi
+				ins.URL = "record_2"
+				ins.Image.FileName = "AGC"
+				err = db.UpdateImage(&ins)
+				Expect(err).NotTo(HaveOccurred())
+
+				ins = ifi
+				ins.URL = "record_3"
+				ins.Image.FileName = "ABC"
+				err = db.UpdateImage(&ins)
+				Expect(err).NotTo(HaveOccurred())
+
+				ins = ifi
+				ins.URL = "record_4"
+				ins.Image.FileName = "BCD"
+				err = db.UpdateImage(&ins)
+				Expect(err).NotTo(HaveOccurred())
+
+				ins = ifi
+				ins.URL = "record_5"
+				ins.Image.FileName = "ADE"
+				err = db.UpdateImage(&ins)
+				Expect(err).NotTo(HaveOccurred())
+
+				ins = ifi
+				ins.URL = "record_6"
+				ins.Image.FileName = "AEF"
+				err = db.UpdateImage(&ins)
+				Expect(err).NotTo(HaveOccurred())
+			})
+			Expect(logerr).NotTo(HaveOccurred())
+
+			log, logerr := testutil.WithStderrMocked(func() {
+				defer GinkgoRecover()
+				lock.Lock()
+				defer lock.Unlock()
+
+				filter := perun.Image{
+					Server:     "*",
+					ImageType:  "*",
+					Profile:    "*",
+					Snapshot:   "*",
+					Prerelease: "*",
+					Repository: "*",
+					ImageName:  "*",
+					FileName:   "A?[C-E]",
+				}
+				images, rev, err := db.GetImages(&filter, 2)
+				Expect(err).NotTo(HaveOccurred())
+				Expect(rev).To(Equal(6))
+				Expect(len(images)).To(Equal(2))
+				urls := []string{images[0].URL, images[1].URL}
+				Expect(urls).To(ContainElement("record_3"))
+				Expect(urls).To(ContainElement("record_5"))
+			})
+			Expect(logerr).NotTo(HaveOccurred())
+			Expect(log).To(BeEmpty())
+		})
+		It("should return error if revision cannot be got", func() {
+			var db DB
+			_, logerr := testutil.WithStderrMocked(func() {
+				defer GinkgoRecover()
+				lock.Lock()
+				defer lock.Unlock()
+				var err error
+				db, err = NewDB(dbfile.Name())
+				Expect(err).NotTo(HaveOccurred())
+			})
+			Expect(logerr).NotTo(HaveOccurred())
+
+			log, logerr := testutil.WithStderrMocked(func() {
+				defer GinkgoRecover()
+				lock.Lock()
+				defer lock.Unlock()
+
+				images, rev, err := db.GetImages(nil, 0)
+				Expect(err).To(Equal(ErrNilPointer))
+				Expect(rev).To(Equal(-1))
+				Expect(images).To(BeEmpty())
+			})
+			Expect(logerr).NotTo(HaveOccurred())
+			Expect(strings.Count(log, "Nil filter passed to newImageFilter function.")).To(Equal(1))
+		})
+		It("should return error if revision cannot be got", func() {
+			var db DB
+			_, logerr := testutil.WithStderrMocked(func() {
+				defer GinkgoRecover()
+				lock.Lock()
+				defer lock.Unlock()
+				var err error
+				db, err = NewDB(dbfile.Name())
+				Expect(err).NotTo(HaveOccurred())
+				dataSource := "file:" + dbfile.Name()
+				db.(*instance).connection, err = sql.Open(defaultSQLDriver, dataSource)
+				Expect(err).NotTo(HaveOccurred())
+			})
+			Expect(logerr).NotTo(HaveOccurred())
+
+			log, logerr := testutil.WithStderrMocked(func() {
+				defer GinkgoRecover()
+				lock.Lock()
+				defer lock.Unlock()
+
+				filter := perun.Image{}
+				images, rev, err := db.GetImages(&filter, 0)
+				Expect(err).To(HaveOccurred())
+				Expect(rev).To(Equal(-1))
+				Expect(images).To(BeEmpty())
+			})
+			Expect(logerr).NotTo(HaveOccurred())
+			Expect(strings.Count(log, "Failed to select images.")).To(Equal(1))
 		})
 	})
 })

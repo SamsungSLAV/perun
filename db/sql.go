@@ -65,4 +65,17 @@ END`
 
 	imagesInsert = `INSERT OR REPLACE INTO images
 VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, -1)`
+
+	imageSelect = `SELECT url, server, imagetype, profile, snapshot, prerelease,
+repository, imagename, filename, length, modified
+FROM images
+WHERE revision > $1
+AND server GLOB $2
+AND imagetype GLOB $3
+AND profile GLOB $4
+AND snapshot GLOB $5
+AND prerelease GLOB $6
+AND repository GLOB $7
+AND imagename GLOB $8
+AND filename GLOB $9`
 )

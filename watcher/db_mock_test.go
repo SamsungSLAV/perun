@@ -44,6 +44,20 @@ func (mr *MockDBMockRecorder) Close() *gomock.Call {
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Close", reflect.TypeOf((*MockDB)(nil).Close))
 }
 
+// GetImages mocks base method
+func (m *MockDB) GetImages(arg0 *perun.Image, arg1 int) ([]perun.ImageFileInfo, int, error) {
+	ret := m.ctrl.Call(m, "GetImages", arg0, arg1)
+	ret0, _ := ret[0].([]perun.ImageFileInfo)
+	ret1, _ := ret[1].(int)
+	ret2, _ := ret[2].(error)
+	return ret0, ret1, ret2
+}
+
+// GetImages indicates an expected call of GetImages
+func (mr *MockDBMockRecorder) GetImages(arg0, arg1 interface{}) *gomock.Call {
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetImages", reflect.TypeOf((*MockDB)(nil).GetImages), arg0, arg1)
+}
+
 // GetRevision mocks base method
 func (m *MockDB) GetRevision() (int, error) {
 	ret := m.ctrl.Call(m, "GetRevision")

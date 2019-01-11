@@ -35,4 +35,40 @@ type DB interface {
 
 	// UpdateImage updates database with new information about image file.
 	UpdateImage(*perun.ImageFileInfo) error
+
+	// GetImages returns collection of information about images maching given filter
+	// (1st parameter) that have changed since given revision (2nd parameter).
+	// The function also returns current revision, so further calls can use it to ask
+	// only for further updates of image list.
+	// In case of error function returns an empty collection and -1 revision and an error.
+	//
+	// Filter must be a non-nil pointer to perun.Image structure.
+	// It's fields should be valid glob strings. Image in database passes filter
+	// (and is returned) if all fields match defined glob expressions.
+	//
+	// Following wildcards can be used to construct glob expressions:
+	// +----------+-----------------------+---------+----------------------+--------------------+
+	// | Wildcard | Description           | Example | Matches              | Does not match     |
+	// +----------+-----------------------+---------+----------------------+--------------------+
+	// | *        | matches any number    | Law*    | Law, Laws, Lawyer    | GrokLaw, La, or aw |
+	// |          | of any characters     +- - - - -+- - - - - - - - - - - + - - - - - - - - - -+
+	// |          | including none        | *Law*   | Law, GrokLaw, Lawyer | La, or aw          |
+	// +----------+-----------------------+---------+----------------------+--------------------+
+	// | ?        | matches any single    | ?at     | Cat, cat, Bat, bat   | at                 |
+	// |          | character             |         |                      |                    |
+	// |          |                       |         |                      |                    |
+	// |          |                       |         |                      |                    |
+	// +----------+-----------------------+---------+----------------------+--------------------+
+	// | [abc]    | matches one character | [CB]at  | Cat, Bat             | cat or bat         |
+	// |          | given in the bracket  |         |                      |                    |
+	// +----------+-----------------------+---------+----------------------+--------------------+
+	// | [a-z]    | matches one character | L[0-9]  | L0, L1, L2 up to L9  | Ls, L or L10       |
+	// |          | from the              |         |                      |                    |
+	// |          | (locale-dependent)    |         |                      |                    |
+	// |          | range given           |         |                      |                    |
+	// |          | in the bracket        |         |                      |                    |
+	// +----------+-----------------------+---------+----------------------+--------------------+
+	// source: https://en.wikipedia.org/wiki/Glob_(programming)
+	//
+	GetImages(*perun.Image, int) ([]perun.ImageFileInfo, int, error)
 }

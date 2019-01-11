@@ -26,4 +26,7 @@ var (
 	// This can happen when someone uses database without starting connection with Start()
 	// method first.
 	ErrDatabaseConnectionNotInitialized = errors.New("Database connection not initialized")
+	// ErrNilPointer is returned when some structures are not properly initialized and contain
+	// unexpected nil value.
+	ErrNilPointer = errors.New("Unexpected nil pointer")
 )

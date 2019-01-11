@@ -159,3 +159,25 @@ func (db *instance) GetRevision() (int, error) {
 	})
 	return rev, err
 }
+
+// GetRevision returns perun's database global revision.
+func (db *instance) GetImages(filter *perun.Image, since int) ([]perun.ImageFileInfo, int, error) {
+	current := -1
+	imageFilter, err := newImageFilter(filter, since)
+	if err != nil {
+		return nil, current, err
+	}
+
+	err = db.runInTransaction(func(tx *sql.Tx) error {
+		ierr := imageFilter.get(tx)
+		if ierr != nil {
+			return ierr
+		}
+		return tx.QueryRow(metaRevisionGet).Scan(&current)
+	})
+	if err != nil {
+		return nil, current, err
+	}
+
+	return imageFilter.result, current, nil
+}
